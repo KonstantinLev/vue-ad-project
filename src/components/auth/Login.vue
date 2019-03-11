@@ -30,7 +30,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSibmit" :disabled="!valid">Login</v-btn>
+            <v-btn color="primary" @click="onSibmit" :disabled="!valid || loading" :loading="loading">Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -62,8 +62,17 @@
             email: this.email,
             password: this.password
           }
-          console.log(user);
+          this.$store.dispatch('loginUser', user)
+            .then(() => {
+              this.$router.push('/')
+            })
+            .catch(() => {})
         }
+      }
+    },
+    computed: {
+      loading () {
+        return this.$store.getters.loading
       }
     }
   }
