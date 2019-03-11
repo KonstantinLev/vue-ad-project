@@ -47,7 +47,8 @@
           <v-flex xs12>
             <v-spacer></v-spacer>
             <v-btn
-              :disabled="!valid"
+              :disabled="!valid || loading"
+              :loading="loading"
               class="success"
               @click="createAd"
             >
@@ -81,8 +82,16 @@
             imageSrc: 'https://99px.ru/sstorage/53/2017/04/tmb_196719_2079.jpg'
           }
           this.$store.dispatch('createAd', ad)
-          console.log(ad)
+            .then(() => {
+              this.$router.push('/list')
+            })
+            .catch(() => {})
         }
+      }
+    },
+    computed: {
+      loading () {
+        return this.$store.getters.loading
       }
     }
   }

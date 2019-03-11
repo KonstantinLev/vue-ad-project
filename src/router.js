@@ -7,8 +7,17 @@ import NewAd from '@/components/ads/NewAd.vue'
 import Login from '@/components/auth/Login.vue'
 import Reg from '@/components/auth/Reg.vue'
 import Orders from '@/components/user/Orders.vue'
+import store from '@/store'
 
 Vue.use(Router)
+
+function authGuard (to, from, next) {
+  if (store.getters.user) {
+    next()
+  } else {
+    next('/login?loginError=true')
+  }
+}
 
 export default new Router({
   routes: [
@@ -26,12 +35,14 @@ export default new Router({
     {
       path: '/list',
       name: 'list',
-      component: AdList
+      component: AdList,
+      beforeEnter: authGuard
     },
     {
       path: '/new',
       name: 'newAd',
-      component: NewAd
+      component: NewAd,
+      beforeEnter: authGuard
     },
     {
       path: '/login',
@@ -46,7 +57,8 @@ export default new Router({
     {
       path: '/orders',
       name: 'orders',
-      component: Orders
+      component: Orders,
+      beforeEnter: authGuard
     }
     // {
     //   path: '/about',
