@@ -77,9 +77,10 @@
           const ad = {
             title: this.title,
             description: this.description,
-            promo: this.promo
+            promo: this.promo,
+            imageSrc: 'https://99px.ru/sstorage/53/2017/04/tmb_196719_2079.jpg'
           }
-
+          this.$store.dispatch('createAd', ad)
           console.log(ad)
         }
       }
