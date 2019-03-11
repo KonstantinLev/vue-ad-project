@@ -13,9 +13,7 @@ class Ad {
 
 export default {
   state: {
-    ads: [
-
-    ]
+    ads: []
   },
   mutations: {
     createAd (state, payload) {
